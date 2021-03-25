@@ -53,20 +53,28 @@
 .header__option {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
-  margin-right: 10px;
+  /* margin-left: 10px;
+  margin-right: 10px; */
   color: white;
+  padding-top: 25px;
+  padding-left: 15px;
 }
 
 .header__optionBasket {
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: white;
+  flex-direction: column;
+  padding: 25px;
 }
 .header__basketCount {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-a {
-  color: white;
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  .header {
+    min-width: 122.5%;
+  }
 }

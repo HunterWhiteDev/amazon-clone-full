@@ -37,7 +37,7 @@ function Payment() {
   }, [basket]);
 
   console.log("THE SECRET IS >>>", clientSecret);
-  console.log("👱", user);
+  console.log("👱", user?.email);
 
   const handleSubmit = async (event) => {
     // do all the fancy stripe stuff...
@@ -45,7 +45,7 @@ function Payment() {
     setProcessing(true);
 
     const payload = await stripe
-      .handleCardAction(clientSecret, {
+      .confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
@@ -62,6 +62,17 @@ function Payment() {
         //     amount: paymentIntent.amount,
         //     created: paymentIntent.created,
         //   });
+        console.log("pi", paymentIntent);
+        console.log("user", user);
+        db.collection("users")
+          .doc(user?.uid)
+          .collection("orders")
+          .doc(paymentIntent.id)
+          .set({
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
 
         setSucceeded(true);
         setError(null);
